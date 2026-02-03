@@ -1,0 +1,89 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background: #f4f4f4;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.game-container {
+    width: 800px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.cards-container {
+    display: grid;
+    /* 2 rows of 4 for 8 images */
+    grid-template-rows: 125px 125px; 
+    grid-template-columns: repeat(4, 125px);
+    grid-gap: 20px;
+    perspective: 1000px; /* Essential for 3D flip effect */
+}
+
+.card {
+    width: 125px;
+    height: 125px;
+    position: relative;
+    cursor: pointer;
+    transform-style: preserve-3d;
+    transition: transform 0.6s;
+}
+
+.outline-image, .card-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    backface-visibility: hidden; /* Hides the back of the image when flipped */
+}
+
+/* The "Back" of the card (Red circle) */
+.outline-image {
+    background-color: #ff4d4d;
+    z-index: 2;
+    transform: rotateY(0deg);
+    transition: transform 0.6s;
+}
+
+/* The "Front" of the card (The Icon) */
+.card-image {
+    background: white;
+    transform: rotateY(180deg); /* Hidden by default */
+    transition: transform 0.6s;
+}
+
+/* Flip Animation Classes */
+.toggled .outline-image {
+    transform: rotateY(180deg);
+}
+
+.toggled .card-image {
+    transform: rotateY(0deg);
+}
+
+.restart-button {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 25px;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    display: none;
+}
+
+.restart-button:hover {
+    background-color: #087a42;
+}
