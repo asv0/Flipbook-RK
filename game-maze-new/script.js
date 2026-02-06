@@ -30,7 +30,7 @@ const mazeMap = [
 ];
 
 const playerImg = new Image();
-playerImg.src = "../assets/RK_Maze_Cursor.png";
+playerImg.src = "assets/RK_Maze_Cursor.png";
 
 let player = { x: 7, y: 3 };
 
