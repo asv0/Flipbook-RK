@@ -1,0 +1,15 @@
+#mazeContainer {
+  position: relative;
+  width: 700px;
+  aspect-ratio: 1 / 1;
+  margin: 40px auto;
+  background-image: url("assets/RK_Winning_Maze.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#playerCanvas {
+  position: absolute;
+  inset: 0;
+}
