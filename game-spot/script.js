@@ -11,23 +11,23 @@
 
 function reveal(e) {
   const reveal = document.querySelector(".reveal");
-  const videoLayer = document.getElementById("videoLayer");
+  const video = document.querySelector(".video-layer video");
   const divider = document.getElementById("divider");
   const handle = document.getElementById("handle");
 
-  let x = e.offsetX;
+  const rect = reveal.getBoundingClientRect();
+  let x = e.clientX - rect.left;
+
   let width = reveal.offsetWidth;
 
-  // Limit movement
   if (x < 0) x = 0;
   if (x > width) x = width;
 
-  // Move video reveal
-  videoLayer.style.width = x + "px";
+  // Convert mouse position to percentage
+  let percent = (x / width) * 100;
 
-  // Move divider
+  video.style.clipPath = `inset(0 0 0 ${percent}%)`;
+
   divider.style.left = x + "px";
-
-  // Move handle
   handle.style.left = x + "px";
 }
