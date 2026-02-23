@@ -67,3 +67,11 @@
   opacity: 0;
   cursor: ew-resize;
 }
+.reveal {
+  touch-action: none;
+}
+.video-layer video,
+#divider,
+#handle {
+  transition: left 0.05s linear, clip-path 0.05s linear;
+}
