@@ -114,6 +114,17 @@ function drawPlayer() {
 //   );
 //   ctx.fill();
 // }
+
+function move(dir) {
+  if (canMove(dir)) {
+    if (dir === "n") player.y--;
+    if (dir === "s") player.y++;
+    if (dir === "w") player.x--;
+    if (dir === "e") player.x++;
+    draw();
+  }
+}
+
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -130,21 +141,89 @@ function canMove(dir) {
   return mazeMap[player.y]?.[player.x]?.[dir];
 }
 
-window.addEventListener("keydown", e => {
-  if (e.key === "ArrowUp" && canMove("n")) player.y--;
-  if (e.key === "ArrowDown" && canMove("s")) player.y++;
-  if (e.key === "ArrowLeft" && canMove("w")) player.x--;
-  if (e.key === "ArrowRight" && canMove("e")) player.x++;
+// window.addEventListener("keydown", e => {
+//   if (e.key === "ArrowUp" && canMove("n")) player.y--;
+//   if (e.key === "ArrowDown" && canMove("s")) player.y++;
+//   if (e.key === "ArrowLeft" && canMove("w")) player.x--;
+//   if (e.key === "ArrowRight" && canMove("e")) player.x++;
 
-  draw();
+//   draw();
+// });
+// window.addEventListener("load", () => {
+//     resize();
+//   draw();
+// });
+
+// window.addEventListener("resize", () => {
+//     resize();
+//  draw();
+
+ 
+ 
+// });
+
+window.addEventListener("keydown", (e) => {
+  const key = e.key.toLowerCase();
+
+  if (["arrowup","arrowdown","arrowleft","arrowright"," "].includes(key)) {
+    e.preventDefault();
+  }
+
+  if (key === "arrowup" || key === "w") move("n");
+  else if (key === "arrowdown" || key === "s") move("s");
+  else if (key === "arrowleft" || key === "a") move("w");
+  else if (key === "arrowright" || key === "d") move("e");
 });
+
+
+let touchStartX = 0;
+let touchStartY = 0;
+
+canvas.addEventListener("touchstart", (e) => {
+  const touch = e.touches[0];
+  touchStartX = touch.clientX;
+  touchStartY = touch.clientY;
+}, { passive: true });
+
+canvas.addEventListener("touchend", (e) => {
+  const touch = e.changedTouches[0];
+  const dx = touch.clientX - touchStartX;
+  const dy = touch.clientY - touchStartY;
+
+  const threshold = 20; // swipe sensitivity
+
+  if (Math.abs(dx) > Math.abs(dy)) {
+    if (dx > threshold) move("e");
+    else if (dx < -threshold) move("w");
+  } else {
+    if (dy > threshold) move("s");
+    else if (dy < -threshold) move("n");
+  }
+});
+
+
 window.addEventListener("load", () => {
-    resize();
+  resize();
   draw();
 });
 
 window.addEventListener("resize", () => {
-    resize();
- draw();
+  resize();
+  draw();
 });
 
+function handleSwipe(dx, dy) {
+  const threshold = 20; // minimum swipe distance
+
+  if (Math.abs(dx) > Math.abs(dy)) {
+    // horizontal swipe
+    if (dx > threshold && canMove("e")) player.x++;
+    if (dx < -threshold && canMove("w")) player.x--;
+  } else {
+    // vertical swipe
+    if (dy > threshold && canMove("s")) player.y++;
+    if (dy < -threshold && canMove("n")) player.y--;
+  }
+
+  draw();
+}
