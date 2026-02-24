@@ -36,11 +36,11 @@ spots.forEach(spot => {
 
 // ===== WIN ANIMATION =====
 function showWin() {
-  popup.style.display = "flex";
+  popup.style.display = "block";
 
   setTimeout(() => {
     document.addEventListener("click", closePopupOnce);
-  }, 600);
+  }, 900);
 }
 function closePopupOnce() {
   closePopup();
