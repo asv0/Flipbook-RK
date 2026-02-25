@@ -1,0 +1,66 @@
+/* Page base */
+
+#mazeContainer {
+  position: relative;
+  width: 700px;
+  aspect-ratio: 1 / 1;
+  margin: 40px auto;
+  background-image: url("assets/RK_Winning_Maze.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  overflow: hidden;
+}
+
+#playerCanvas {
+  position: absolute;
+  inset: 0;
+}
+
+canvas {
+  touch-action: none;
+}
+
+#winPopup {
+  position: absolute; 
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(3px);
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .4s ease;
+}
+
+/* SHOW STATE */
+#winPopup.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* WIN IMAGE */
+.win-image {
+  width: 55%;
+  max-width: 340px;
+  z-index: 2;
+  animation: popIn .45s ease;
+}
+
+/* CONFETTI GIF */
+.confetti-gif {
+  position: absolute;
+  width: 140%;
+  max-width: none;
+  pointer-events: none;
+  z-index: 1;
+  opacity: .9;
+}
+
+@keyframes popIn {
+  from { transform: scale(.6); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
